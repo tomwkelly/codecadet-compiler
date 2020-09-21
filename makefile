@@ -2,6 +2,10 @@ all:
 	mkdir -p ./out
 	cd ./out; \
 		cmake .. && make
+dev:
+	mkdir -p ./out
+	cd ./out; \
+		CXX=g++-10 cmake .. && make
 
 test:
 	make && ./out/tests
