@@ -1,4 +1,6 @@
 # CodeCadet Compiler
+#
+A compiler for the codecadet language
 
 ## Current builds
 
