@@ -35,7 +35,7 @@ jobs:
             cd out
             ./tests --gtest_output=XML
       - store_test_results:
-          path: out
+          path: out/tests
 
 workflows:
   build-test:
