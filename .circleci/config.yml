@@ -1,44 +1,10 @@
 version: 2.1
 executors:
-  docker-publisher:
-    environment:
-      IMAGE_NAME: exgo/code-cadet-compiler
-    docker:
-      - image: circleci/buildpack-deps:stretch
   docker-get:
     docker:
       - image: exgo/code-cadet-compiler:latest
 
 jobs:
-  build-docker:
-    executor: docker-publisher
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build Docker image
-          command: docker build -t $IMAGE_NAME:latest .
-      - run:
-          name: Archive Docker Image
-          command: docker save -o image.tar $IMAGE_NAME
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./image.tar
-  publish-latest:
-    executor: docker-publisher
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - setup_remote_docker
-      - run:
-          name: Load archived Docker image
-          command: docker load -i /tmp/workspace/image.tar
-      - run:
-          name: Publish Docker Image to Docker Hub
-          command: |
-            echo "$DOCKERHUB_PASS" | docker login --username "$DOCKERHUB_USER" --password-stdin
-            docker push $IMAGE_NAME:latest
   build:
     executor: docker-get
     steps:
@@ -74,34 +40,7 @@ jobs:
 workflows:
   build-master:
     jobs:
-      - build-docker:
-          filters:
-            branches:
-              only:
-                - master
-                - develop
-      - publish-latest:
-          requires:
-            - build-docker
-          context: dockerhub
-          filters:
-            branches:
-              only:
-                - master
-                - develop
-      - build:
-          requires:
-            - publish-latest
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+      - build
       - test:
           requires:
             - build
-          filters:
-            branches:
-              only:
-                - master
-                - develop
