@@ -48,4 +48,6 @@ workflows:
           context: dockerhub
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - develop
