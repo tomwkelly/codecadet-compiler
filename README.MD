@@ -14,6 +14,12 @@ To build and install
 make install
 ```
 
+To build and run tests
+
+```
+make test
+```
+
 To uninstall
 
 ```
