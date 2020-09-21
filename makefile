@@ -1,3 +1,13 @@
 all:
+	mkdir -p ./out
 	cd ./out; \
 		CXX=g++-10 cmake .. && make
+
+install:
+	make && cp ./out/Main /usr/local/bin/cccp
+
+uninstall:
+	rm /usr/local/bin/cccp
+
+clean:
+	rm -rf ./out/*
