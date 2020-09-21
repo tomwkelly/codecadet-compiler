@@ -1,0 +1,11 @@
+
+number a = 44.022;
+
+string name = "bob";
+
+string gloop = 'wahaa';
+
+
+print(number);
+print(bob);
+
