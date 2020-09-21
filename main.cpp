@@ -1,7 +1,7 @@
 #include <memory>
 #include <string>
-#include "./shared/fileReader.h"
-#include "./lexer/lexer.h"
+#include "./src/shared/fileReader.h"
+#include "./src/lexer/lexer.h"
 #include <iostream>
 
 using std::cout;
