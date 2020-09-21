@@ -2,7 +2,7 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: code-cadet-compiler
+      IMAGE_NAME: exgo/code-cadet-compiler
     docker:
       - image: circleci/buildpack-deps:stretch
 jobs:
