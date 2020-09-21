@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.0)
+project(CodeCadetCompiler)
+set(CMAKE_CSS_STANDARD 20)
+add_library(Core src/lexer/lexer.cpp)
+add_executable(Main ./main.cpp)
+target_link_libraries(Main Core)
