@@ -3,6 +3,9 @@ all:
 	cd ./out; \
 		CXX=g++-10 cmake .. && make
 
+test:
+	make && ./out/tests
+
 install:
 	make && cp ./out/Main /usr/local/bin/cccp
 

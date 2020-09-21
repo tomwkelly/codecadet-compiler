@@ -6,7 +6,7 @@
 TEST(LexerTest, CreatesLexer) {
     std::string file("print a;");
    
-    unique_ptr<Lexer> l = create_lexer(file);
+    std::unique_ptr<Lexer> l = create_lexer(file);
 
-    EXPECT_TRUE(l)
+    EXPECT_TRUE(l);
 }
