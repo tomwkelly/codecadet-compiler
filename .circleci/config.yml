@@ -38,7 +38,7 @@ jobs:
           path: out
 
 workflows:
-  build-master:
+  build-test:
     jobs:
       - build
       - test:
