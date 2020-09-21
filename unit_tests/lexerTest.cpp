@@ -8,5 +8,6 @@ TEST(LexerTest, CreatesLexer) {
    
     std::unique_ptr<Lexer> l = create_lexer(file);
 
+
     EXPECT_TRUE(l);
 }
