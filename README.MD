@@ -19,6 +19,11 @@ To uninstall
 ```
 make uninstall
 ```
+To delete output files
+
+```
+make clean
+```
 
 ## Compiling
 
