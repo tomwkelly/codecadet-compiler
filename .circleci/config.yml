@@ -5,8 +5,12 @@ executors:
       IMAGE_NAME: exgo/code-cadet-compiler
     docker:
       - image: circleci/buildpack-deps:stretch
+  docker-get:
+    docker:
+      - image: exgo/code-cadet-compiler:latest
+
 jobs:
-  build:
+  build-docker:
     executor: docker-publisher
     steps:
       - checkout
@@ -35,17 +39,67 @@ jobs:
           command: |
             echo "$DOCKERHUB_PASS" | docker login --username "$DOCKERHUB_USER" --password-stdin
             docker push $IMAGE_NAME:latest
+  build:
+    executor: docker-get
+    steps:
+      - checkout
+      - run:
+          name: Setup google test repo
+          command: |
+            cd third_party
+            git submodule init
+            git submodule update
+      - run:
+          name: Setup cmake and build artifacts
+          command: |
+            make
+      - persist_to_workspace:
+          root: .
+          paths:
+            - out
+
+  test:
+    executor: docker-get
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Execute Tests
+          command: |
+            cd out
+            ./tests --gtest_output=XML
+      - store_test_results:
+          path: out
+
 workflows:
   build-master:
     jobs:
-      - build:
+      - build-docker:
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - develop
       - publish-latest:
           requires:
-            - build
+            - build-docker
           context: dockerhub
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+      - build:
+          requires:
+            - publish-latest
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+      - test:
+          requires:
+            - build
           filters:
             branches:
               only:
