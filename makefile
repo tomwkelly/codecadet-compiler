@@ -1,7 +1,7 @@
 all:
 	mkdir -p ./out
 	cd ./out; \
-		CXX=g++-10 cmake .. && make
+		cmake .. && make
 
 test:
 	make && ./out/tests
