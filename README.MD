@@ -3,7 +3,6 @@
 ## Current builds
 
 [![tomwkelly](https://circleci.com/gh/tomwkelly/codecadet-compiler/tree/master.svg?style=shield)](https://circleci.com/gh/tomwkelly/codecadet-compiler/tree/master)
-[![tomwkelly](https://circleci.com/gh/tomwkelly/codecadet-compiler/tree/develop.svg?style=shield)](https://circleci.com/gh/tomwkelly/codecadet-compiler/tree/develop)
 
 ## Building source code
 
