@@ -7,20 +7,20 @@ executors:
       - image: circleci/buildpack-deps:stretch
 jobs:
   build:
-    executor: docker-publisher  
+    executor: docker-publisher
     steps:
-        - checkout
-        - setup_remote_docker
-        - run:
-            name: Build Docker image
-            command: docker build -t $IMAGE_NAME:latest .
-        - run:
-            name: Archive Docker Image
-            command: docker save -o image.tar $IMAGE_NAME
-        - persist_to_workspace:
-            root: .
-            paths:
-              - ./image.tar
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $IMAGE_NAME:latest .
+      - run:
+          name: Archive Docker Image
+          command: docker save -o image.tar $IMAGE_NAME
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
   publish-latest:
     executor: docker-publisher
     steps:
@@ -40,12 +40,12 @@ workflows:
   build-master:
     jobs:
       - build:
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - publish-latest:
-        requires:
-          - build
-        filters:
-          branches:
-            only: master
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
