@@ -17,8 +17,12 @@ m=$(echo ${ADDR[1]} | cut -c 1-)
 
 echo "message is: $m"
 
+c=$(echo ${ADDR[0]} | tr '[:upper:]' '[:lower:]')
 
-n=$(curl -X POST -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls -d "{\"title\":\"${m}\",\"head\":\"${1}\",\"base\":\"master\"}" | grep -o '"number": [^,]*' | grep -o '[0-9]*')
+echo "title is $c"
+
+
+n=$(curl -X POST -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls -d "{\"title\":\"${c}\",\"head\":\"${1}\",\"base\":\"master\"}" | grep -o '"number": [^,]*' | grep -o '[0-9]*')
 
 echo "number is: $n"
 
