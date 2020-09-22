@@ -4,7 +4,7 @@
 m=$(curl \
   -X GET \
   -H "Accept: application/vnd.github.v3+json" \
--H "Authorization: token 680e972be491583d01170c673f22145ba31f368b" \
+-H "Authorization: token ${2}" \
   https://api.github.com/repos/tomwkelly/codecadet-compiler/commits/${1} |  grep -o '"message": "[^"]*' | grep -o '[^"]*$')
 
 n=$(curl \
