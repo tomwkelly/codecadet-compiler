@@ -1,6 +1,9 @@
 
 # 1 branch 2 token
 
+echo 'Branch:'
+echo $1
+
 m=$(curl \
   -X GET \
   -H "Accept: application/vnd.github.v3+json" \
