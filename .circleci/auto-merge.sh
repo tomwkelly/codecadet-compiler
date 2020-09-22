@@ -26,9 +26,10 @@ retrycount=0
 
 echo $http_code
 
-while (([$http_code == 404] && [$retrycount < 6]))
+while ((($http_code == 404 || $http_code == 000) && $retrycount < 6))
 do
-  echo "404 retrying, attempt: ${retrycount}"
+  echo "${http_code} retrying, attempt: ${retrycount}"
+  sleep 5s
   $retrycount=$(($retrycount + 1))
   http_code=$(curl \
   -X PUT \
