@@ -55,5 +55,6 @@ workflows:
           requires:
             - build
       - merge:
+          context: github
           requires:
             - test
