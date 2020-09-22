@@ -11,7 +11,7 @@ m=$(curl \
   https://api.github.com/repos/tomwkelly/codecadet-compiler/commits/${1} |  grep -o '"message": "[^"]*' | grep -o '[^"]*$')
 
 
-IFS=':' read -rA ADDR <<< "$m"
+IFS=':' read -ra ADDR <<< "$m"
 
 m=$(echo ${ADDR[2]} | cut -c 2-)
 
