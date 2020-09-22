@@ -45,7 +45,7 @@ jobs:
           name: Merge request
           command: |
             cd ./.circleci
-            ./auto-merge.sh $CIRCLE_BRANCH ${GITHUB_TOKEN}
+            ./auto-merge.sh $CIRCLE_BRANCH $GITHUB_TOKEN
 
 workflows:
   build-test:
