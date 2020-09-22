@@ -13,7 +13,7 @@ m=$(curl \
 
 IFS=':' read -ra ADDR <<< "$m"
 
-m=$(echo ${ADDR[1]} | cut -c 2-)
+m=$(echo ${ADDR[1]} | cut -c 1-)
 
 echo "message is: $m"
 
