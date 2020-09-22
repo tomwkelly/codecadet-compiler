@@ -17,7 +17,7 @@ m=$(echo ${ADDR[1]} | cut -c 1-)
 
 echo "message is: $m"
 
-c=$(echo ${Addr[0]})
+c=$(echo ${ADDR[0]})
 
 echo "title is $c"
 
