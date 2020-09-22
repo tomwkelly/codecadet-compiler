@@ -32,8 +32,6 @@ retrycount=0
 
 echo $http_code
 
-echo $2
-
 while ((($http_code == 404 || $http_code == 000 || $http_code == 404000) && $retrycount < 6))
 do
   echo "${http_code} retrying, attempt: ${retrycount}"
