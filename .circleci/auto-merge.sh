@@ -1,6 +1,9 @@
 
 # 1 branch 2 token
 
+echo 'Branch:'
+echo $1
+
 m=$(curl \
   -X GET \
   -H "Accept: application/vnd.github.v3+json" \
@@ -13,9 +16,24 @@ n=$(curl \
 -H "Authorization: token ${2}"  https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls \
   -d "{\"title\":\"${m}\",\"head\":\"${1}\",\"base\":\"master\"}" | grep '"number": [^,]*' | grep -o '[0-9]\d*')
 
-curl \
+http_code=$(curl \
   -X PUT \
   -H "Accept: application/vnd.github.v3+json" \
--H "Authorization: token ${2}" \
-  https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls/$n/merge \
-  -d "{\"commit_title\":\"Merge ${1} into master\"}"
+-H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls/$n/merge \
+  -d "{\"commit_title\":\"Merge ${1} into master\"}" -w %{response_code} -o /dev/null )
+
+retrycount=0
+
+echo $http_code
+
+while ((($http_code == 404 || $http_code == 000) && $retrycount < 6))
+do
+  echo "${http_code} retrying, attempt: ${retrycount}"
+  sleep 5s
+  $retrycount=$(($retrycount + 1))
+  http_code=$(curl \
+  -X PUT \
+  -H "Accept: application/vnd.github.v3+json" \
+  -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls/$n/merge \
+  -d "{\"commit_title\":\"Merge ${1} into master\"}" -w %{response_code} -o /dev/null )
+done
