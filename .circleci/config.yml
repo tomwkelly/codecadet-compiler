@@ -50,7 +50,9 @@ jobs:
 workflows:
   build-test:
     jobs:
-      - build
+      - build:
+          filters:
+            ignore: master
       - test:
           requires:
             - build
