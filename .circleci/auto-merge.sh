@@ -10,7 +10,13 @@ m=$(curl \
 -H "Authorization: token ${2}" \
   https://api.github.com/repos/tomwkelly/codecadet-compiler/commits/${1} |  grep -o '"message": "[^"]*' | grep -o '[^"]*$')
 
+
+IFS=':' read -rA ADDR <<< "$m"
+
+m=$(echo ${ADDR[2]} | cut -c 2-)
+
 echo "message is: $m"
+
 
 n=$(curl -X POST -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls -d "{\"title\":\"${m}\",\"head\":\"${1}\",\"base\":\"master\"}" | grep -o '"number": [^,]*' | grep -o '[0-9]*')
 
