@@ -12,7 +12,7 @@ m=$(curl \
 
 echo "message is: $m"
 
-n=$(curl -X POST -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls -d "{\"title\":\"${m}\",\"head\":\"${1}\",\"base\":\"master\"}" | grep -o '"number": [^,]*' | grep -o '[0-9]\d*')
+n=$(curl -X POST -s -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls -d "{\"title\":\"${m}\",\"head\":\"${1}\",\"base\":\"master\"}" | grep -o '"number": [^,]*' | grep -o '[0-9]*')
 
 echo "number is: $n"
 
