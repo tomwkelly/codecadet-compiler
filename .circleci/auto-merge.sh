@@ -22,13 +22,14 @@ http_code=$(curl \
 -H "Authorization: token ${2}" https://api.github.com/repos/tomwkelly/codecadet-compiler/pulls/$n/merge \
   -d "{\"commit_title\":\"Merge ${1} into master\"}" -w %{response_code} -o /dev/null )
 
-retrycount = 0
+retrycount=0
 
 echo $http_code
 
 while (([$http_code == 404] && [$retrycount < 6]))
 do
   echo "404 retrying, attempt: ${retrycount}"
+  $retrycount=$(($retrycount + 1))
   http_code=$(curl \
   -X PUT \
   -H "Accept: application/vnd.github.v3+json" \
