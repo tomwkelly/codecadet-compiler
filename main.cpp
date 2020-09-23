@@ -3,6 +3,7 @@
 #include "./src/shared/fileReader.h"
 #include "./src/lexer/lexer.h"
 #include <iostream>
+#include <chrono>
 
 using std::cout;
 using std::string;
@@ -16,6 +17,8 @@ int main(int argc, char** argv){
 
     unique_ptr<char[]> file = FileReader(fileName);
 
+    auto start = std::chrono::system_clock::now();
+
     unique_ptr<Lexer> l =  create_lexer(string(file.get()));
 
 
@@ -26,6 +29,10 @@ int main(int argc, char** argv){
 
         cout << l->tokenList[i].value << ' ' << l-> tokenList[i].type << std::endl;
     }
+
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now() - start).count();
+
+    std::cout << "Total runtime: " << duration << std::endl;
 
     return 0;
 }
