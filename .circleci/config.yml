@@ -37,6 +37,17 @@ jobs:
       - store_test_results:
           path: out
 
+  benchmark:
+    executor: docker-get
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Benchmark
+          command: |
+            cd out
+            ./benchmarks --benchmark_format=json
+
   merge:
     executor: docker-get
     steps:
@@ -52,6 +63,9 @@ workflows:
     jobs:
       - build
       - test:
+          requires:
+            - build
+      - benchmark:
           requires:
             - build
       - merge:
