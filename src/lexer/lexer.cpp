@@ -83,16 +83,14 @@ Token Lexer::get_id() {
         advance();
     }
 
-    if (is_keyword(val.str())) {
-        return Token(KEYWORD, val.str());
-    }
+    std::string res = val.str();
+
+    auto found = Keywords.find(res);
+
+    if (found != Keywords.end()) return Token(found->second, res);
 
     return Token(ID, val.str());
 };
-
-bool Lexer::is_keyword(std::string val) {
-    return std::find(Keywords.begin(), Keywords.end(), val) != Keywords.end();
-}
 
 Token Lexer::get_number() {
     std::stringstream val;

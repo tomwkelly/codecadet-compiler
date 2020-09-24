@@ -10,9 +10,9 @@ class Lexer {
     std::vector<Token> tokenList;
     Lexer(std::string cont);
     void create_tokens();
-    char c;                      // current char
-    unsigned int i;              // current index
     const std::string contents;  // contents to be parsed
+    unsigned int i;              // current index
+    char c;                      // current char
     void advance();
 
    private:
