@@ -23,6 +23,7 @@ jobs:
           root: .
           paths:
             - out
+            - benchmark_tests
 
   test:
     executor: docker-get
