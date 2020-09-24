@@ -46,8 +46,10 @@ jobs:
           name: Run Benchmark
           command: |
             cd out
-            ./benchmarks --benchmark_format=json
-
+            ./benchmarks --benchmark_format=json > benchmark_test.json
+            cd ../benchmark_tests
+            node benchmark-format.js ../out/benchmark_test.json
+            curl -u elastic:$ELASTIC_PASS -H "Content-Type: application/x-ndjson" -XPOST "https://e43e40cc22ec463395fae51bd5ffa5e0.eastus2.azure.elastic-cloud.com:9243/benchmark/_bulk?pretty" --data-binary "@output-benchmarks.json"
   merge:
     executor: docker-get
     steps:
@@ -69,6 +71,7 @@ workflows:
           requires:
             - build
       - benchmark:
+          context: elastic
           requires:
             - build
       - merge:

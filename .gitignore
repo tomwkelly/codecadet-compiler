@@ -1,5 +1,7 @@
 out/
 
+benchmark_tests/output-benchmarks.json
+
 # Prerequisites
 *.d
 
