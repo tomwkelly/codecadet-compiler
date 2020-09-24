@@ -1,7 +1,7 @@
 out/
 
 benchmark_tests/output-benchmarks.json
-
+*.vscode
 # Prerequisites
 *.d
 

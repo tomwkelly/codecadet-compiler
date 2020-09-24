@@ -1,27 +1,27 @@
-#include "gtest/gtest.h"
-#include "../src/lexer/lexer.h"
-#include <string>
 #include <memory>
+#include <string>
+
+#include "../src/lexer/lexer.h"
+#include "gtest/gtest.h"
 
 using std::string;
 using std::unique_ptr;
 TEST(LexerTest, CreatesLexer) {
     string file("print a;");
-   
-    unique_ptr<Lexer> l = create_lexer(file);
 
-    EXPECT_TRUE(l);
+    std::unique_ptr<Lexer> lp = std::make_unique<Lexer>(file);
+
+    EXPECT_TRUE(lp);
 }
 
 TEST(LexerTest, IncrementsChar) {
-   string file("print a;");
+    string file("print a;");
 
-   unique_ptr<Lexer> l = create_lexer(file);
+    Lexer l(file);
 
-   char c = l->c;
-   
-   l->advance();
+    char c = l.c;
 
-   EXPECT_NE(c, l->c);
-   
+    l.advance();
+
+    EXPECT_NE(c, l.c);
 }
